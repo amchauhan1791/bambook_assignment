@@ -1,0 +1,11 @@
+﻿{
+  "Group": "Discount requirements",
+  "FriendlyName": "Must be assigned to regular customers",
+  "SystemName": "DiscountRequirement.MustBeAssignedToRegularCustomer",
+  "Version": "4.80.1",
+  "SupportedVersions": [ "4.80" ],
+  "Author": "Ajay Chauhan",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Plugin.Discount.CustomDiscounts.dll",
+  "Description": "This plugin allows you to configure discounts for regular customers."
+}
