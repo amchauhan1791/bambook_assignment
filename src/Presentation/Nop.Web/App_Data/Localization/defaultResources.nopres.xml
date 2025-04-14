@@ -1875,6 +1875,12 @@
   <LocaleResource Name="Admin.Catalog.Attributes.ProductAttributes.Fields.Name.Hint">
     <Value>The name of the product attribute.</Value>
   </LocaleResource>
+  <LocaleResource Name="Admin.Catalog.Attributes.ProductAttributes.Fields.SearchName">
+    <Value>Name</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Catalog.Attributes.ProductAttributes.Fields.SearchName.Hint">
+    <Value>Search product attribute by name.</Value>
+  </LocaleResource>
   <LocaleResource Name="Admin.Catalog.Attributes.ProductAttributes.Fields.Name.Required">
     <Value>Please provide a name.</Value>
   </LocaleResource>

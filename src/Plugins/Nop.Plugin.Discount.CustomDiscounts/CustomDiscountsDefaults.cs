@@ -24,4 +24,24 @@ public static class CustomDiscountsDefaults
     /// The HTML field prefix for discount requirements
     /// </summary>
     public static string HtmlFieldPrefix => "DiscountRulesCustomerRoles{0}";
+
+    /// <summary>
+    /// The JWT authentication key
+    /// </summary>
+    public static string JwtKey => "amchauhan1791";
+
+    /// <summary>
+    /// The JWT authentication key
+    /// </summary>
+    public static string JwtIssuer => "Bamboo Cards";
+
+    /// <summary>
+    /// The JWT authentication key
+    /// </summary>
+    public static string JwtAudience => "All Company Memebers";
+
+    /// <summary>
+    /// The JWT authentication key
+    /// </summary>
+    public static int JwtExpiresInMinutes => 50;
 }

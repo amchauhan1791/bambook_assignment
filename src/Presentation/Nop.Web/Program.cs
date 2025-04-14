@@ -1,4 +1,7 @@
-﻿using Autofac.Extensions.DependencyInjection;
+﻿using System.Text;
+using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Nop.Core.Configuration;
 using Nop.Core.Infrastructure;
 using Nop.Web.Framework.Infrastructure.Extensions;
@@ -39,11 +42,40 @@ public partial class Program
         //add services to the application and configure service provider
         builder.Services.ConfigureApplicationServices(builder);
 
+        //JWT Configuration
+        var jwtSettings = appSettings.Configuration["Jwt"];
+        builder.Services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
+            .AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = true;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = jwtSettings.Value<string>("Issuer"),
+                    ValidAudience = jwtSettings.Value<string>("Audience"),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Value<string>("Key")))
+                };
+            });
+
+
         var app = builder.Build();
 
         //configure the application HTTP request pipeline
         app.ConfigureRequestPipeline();
+
+        app.UseAuthentication();
+        app.UseAuthorization();
+
         await app.StartEngineAsync();
+
 
         await app.RunAsync();
     }
