@@ -1,18 +1,32 @@
+version: '3.9'
+
 services:
-    nopcommerce_web:
-        build: .
-        container_name: nopcommerce
-        ports:
-            - "80:80"
-        depends_on:
-            - nopcommerce_database
-    nopcommerce_database:
-        image: "mcr.microsoft.com/mssql/server:2019-latest"
-        container_name: nopcommerce_mssql_server
-        environment:
-            SA_PASSWORD: "nopCommerce_db_password"
-            ACCEPT_EULA: "Y"
-            MSSQL_PID: "Express"
+  nopcommerce_database:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: nopcommerce_mssql_server
+    environment:
+      SA_PASSWORD: "Admin@123"
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Express"
+    ports:
+      - "1433:1433"
+    volumes:
+      - nopcommerce_data:/var/opt/mssql
+
+  nopcommerce_web:
+    build: .
+    container_name: nopcommerce
+    ports:
+      - "8080:80"
+    depends_on:
+      - nopcommerce_database
+    environment:
+      DB_HOST: nopcommerce_database
+      # Optional: You can set these here or through appsettings.json
+      ConnectionStrings__DefaultConnection: "Server=nopcommerce_database;Database=nopcommerce;User ID=sa;Password=Admin@123;"
+    volumes:
+      - ./entrypoint.sh:/entrypoint.sh
+    entrypoint: /entrypoint.sh
 
 volumes:
-  nopcommerce_data:            
+  nopcommerce_data:
