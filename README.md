@@ -96,20 +96,21 @@ GET http://localhost:15536/api/orderApi/GenerateToken
 
 ## 🐳 Building & Running a Containerized Version
 
-If you want to run the full NopCommerce app inside the Docker, execute the following command:
+If you want to run the full NopCommerce app inside Docker, execute the following command(**Note: Make sure Docker Desktop is installed in your system, if no,t you can download from here: <a target="_blank" href="https://www.docker.com/products/docker-desktop">Docker Desktop</a>**)
 
 ### 1. **Build the Docker Image**
 
-> You should already have a Dockerfile in your NopCommerce root directory.
+> You should already have a **Dockerfile, docker-compose.yml & entrypoint.sh** files in your NopCommerce root directory.
+> Open a terminal in your Visual Studio and change the directory to the root directory, which is /src where Docker files are there then execute the below Docker command
 
 ```bash
- docker compose build --no-cache
+ docker compose down --volumes
 ```
 
 ### 3. **Run the Container**
 
 ```bash
- docker compose up -d
+ docker compose up --build -d
 ```
 
 Visit: [http://localhost:8080](http://localhost:8080)
