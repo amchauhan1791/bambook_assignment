@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
+﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Nop.Core.Configuration;
-using Nop.Plugin.Discount.CustomDiscounts.Models;
 using Nop.Services.Orders;
+using Nop.Web.API.Dtos;
 using Nop.Web.Framework.Controllers;
 
-namespace Nop.Plugin.Discount.CustomDiscounts.API;
+namespace Nop.Web.API;
 
 [Route("api/orderApi/")]
 [ApiController]

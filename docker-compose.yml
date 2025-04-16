@@ -21,6 +21,10 @@ services:
     depends_on:
       - nopcommerce_database
     environment:
+      Jwt__Issuer: "Bamboo Cards"
+      Jwt__Audience: "Customers or Staff"
+      Jwt__Key: "k83hsS9kdhs727292jsj3n7H8kslq81z"
+      Jwt__ExpireMinutes: "60"
       DB_HOST: nopcommerce_database
       # Optional: You can set these here or through appsettings.json
       ConnectionStrings__DefaultConnection: "Server=nopcommerce_database;Database=nopcommerce;User ID=sa;Password=Admin@123;"

@@ -4,6 +4,12 @@ WORKDIR /src
 
 # Copy solution and restore
 COPY . .
+# Copy plugins
+COPY src/Presentation/Nop.Web/Plugins ./Plugins
+
+# Copy plugins.json
+COPY src/Presentation/Nop.Web/App_Data ./App_Data
+
 RUN dotnet restore src/NopCommerce.sln
 
 # Publish the app
@@ -38,6 +44,7 @@ RUN apk add --no-cache \
     --repository http://dl-3.alpinelinux.org/alpine/edge/main/ \
     --repository http://dl-3.alpinelinux.org/alpine/edge/community/
 
+ 
 # Copy and prepare entrypoint
 COPY ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
@@ -47,6 +54,11 @@ WORKDIR /app
 # Copy published output from build stage
 COPY --from=build /app/published .
 
+RUN chmod 755 /entrypoint.sh && \
+    for dir in Plugins App_Data bin logs wwwroot; do \
+        [ -d "$dir" ] && chmod -R 775 "$dir"; \
+    done
+	
 ENV ASPNETCORE_URLS=http://+:80
 EXPOSE 80
 

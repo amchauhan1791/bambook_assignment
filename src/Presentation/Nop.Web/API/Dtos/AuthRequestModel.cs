@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace Nop.Plugin.Discount.CustomDiscounts.Models;
+namespace Nop.Web.API.Dtos;
 public class AuthRequestModel
 {
     [JsonProperty(propertyName: "username")]

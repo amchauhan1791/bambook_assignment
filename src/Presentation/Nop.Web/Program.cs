@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Nop.Core.Configuration;
 using Nop.Core.Infrastructure;
+using Nop.Web.API;
 using Nop.Web.Framework.Infrastructure.Extensions;
 
 namespace Nop.Web;
@@ -43,7 +44,12 @@ public partial class Program
         builder.Services.ConfigureApplicationServices(builder);
 
         //JWT Configuration
-        var jwtSettings = appSettings.Configuration["Jwt"];
+        var jwtSection = builder.Configuration.GetSection("Jwt");
+        if (!jwtSection.Exists())
+        {
+            throw new Exception("Missing Jwt config section.");
+        }
+        var jwtSettings = jwtSection.Get<JwtConfig>();
         builder.Services.AddAuthentication(options =>
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -59,9 +65,9 @@ public partial class Program
                     ValidateAudience = true,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-                    ValidIssuer = jwtSettings.Value<string>("Issuer"),
-                    ValidAudience = jwtSettings.Value<string>("Audience"),
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Value<string>("Key")))
+                    ValidIssuer = jwtSettings.Issuer,
+                    ValidAudience = jwtSettings.Audience,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key))
                 };
             });
 
