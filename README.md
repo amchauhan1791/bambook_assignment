@@ -41,7 +41,7 @@ Follow the steps below to install the plugin into your NopCommerce solution:
 
 This custom API endpoint. You can test it using **Postman**, **cURL**, or any HTTP client.
 
-### Example Request
+### Example Request (Note: Makesure your project is running on the HTTP://localhost:15536/ port)
 ### Generate Token
 1. First, you have to authenticate the user; for that, you have to call the GenerateToken API endpoint as below
 
