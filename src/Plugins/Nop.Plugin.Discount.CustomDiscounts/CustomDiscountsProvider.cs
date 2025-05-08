@@ -104,7 +104,7 @@ public class CustomDiscountsProvider : BasePlugin, IDiscountRequirementRule
     /// </summary>
     public override string GetConfigurationPageUrl()
     {
-        return _webHelper.GetStoreLocation() + "Admin/Configuration/Configure";
+        return $"{_webHelper.GetStoreLocation()}Admin/Configuration/Configure";
     }
     #endregion
 

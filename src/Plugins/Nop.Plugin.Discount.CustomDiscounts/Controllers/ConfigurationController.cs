@@ -99,7 +99,7 @@ public class ConfigurationController : BasePluginController
         await _settingService.SaveSettingOverridablePerStoreAsync(customDiscountSettings, x => x.DiscountPercentage, model.DiscountPercentage_OverrideForStore, storeScope, false);
 
         //in-active discount
-        var discount = (await _discountService.GetAllDiscountsAsync()).FirstOrDefault(x => x.Name.Contains(CustomDiscountsDefaults.DiscountName));
+        var discount = (await _discountService.GetAllDiscountsAsync(isActive: null, showHidden: true)).FirstOrDefault(x => x.Name.Contains(CustomDiscountsDefaults.DiscountName));
         if (discount != null)
         {
             discount.IsActive = model.Enabled;
